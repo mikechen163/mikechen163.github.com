@@ -1,0 +1,797 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1 在本地系统安装octopress系统。具体步骤参考Mac环境下部署Octopress个人博客到Heroku 2 创建新文章rake new_post[&amp;apos;文章标题&amp;apos;]3 部署到herokurake generate git add . git commit -m &quot;add new post&quot; git push heroku master4 部署到vps">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用octopress搭建个人博客">
+<meta property="og:url" content="http://yoursite.com/2015/06/22/2015-06-22-setup-weblog/index.html">
+<meta property="og:site_name" content="mike163&#39;s home">
+<meta property="og:description" content="1 在本地系统安装octopress系统。具体步骤参考Mac环境下部署Octopress个人博客到Heroku 2 创建新文章rake new_post[&amp;apos;文章标题&amp;apos;]3 部署到herokurake generate git add . git commit -m &quot;add new post&quot; git push heroku master4 部署到vps">
+<meta property="article:published_time" content="2015-06-21T17:40:06.000Z">
+<meta property="article:modified_time" content="2015-08-12T04:49:24.000Z">
+<meta property="article:author" content="mike163">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/06/22/2015-06-22-setup-weblog/"/>
+
+  <title> 使用octopress搭建个人博客 | mike163's home </title>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">mike163's home</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/digest" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用octopress搭建个人博客
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-06-22T01:40:06+08:00" content="2015-06-22">
+              2015-06-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/06/22/2015-06-22-setup-weblog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/22/2015-06-22-setup-weblog/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-在本地系统安装octopress系统。具体步骤参考"><a href="#1-在本地系统安装octopress系统。具体步骤参考" class="headerlink" title="1 在本地系统安装octopress系统。具体步骤参考"></a>1 在本地系统安装octopress系统。具体步骤参考</h4><p><a href="http://sawyerzhu.herokuapp.com/blog/2014/05/06/octopress-deloyment-on-mac/" target="_blank" rel="noopener">Mac环境下部署Octopress个人博客到Heroku</a></p>
+<h4 id="2-创建新文章"><a href="#2-创建新文章" class="headerlink" title="2 创建新文章"></a>2 创建新文章</h4><pre><code>rake new_post[&apos;文章标题&apos;]</code></pre><h4 id="3-部署到heroku"><a href="#3-部署到heroku" class="headerlink" title="3 部署到heroku"></a>3 部署到heroku</h4><pre><code>rake generate
+git add .
+git commit -m &quot;add new post&quot;
+git push heroku master</code></pre><h4 id="4-部署到vps"><a href="#4-部署到vps" class="headerlink" title="4 部署到vps"></a>4 部署到vps</h4><p>   3.1 服务器端：安装httpd server</p>
+<pre><code>sudo yum -y install httpd</code></pre><p>   3.2 服务器端：增加虚拟服务器配置</p>
+<p>   在 /etc/httpd/conf.d目录下，添加一个vhost-name.conf文件，内容如下：</p>
+<pre><code>&lt;VirtualHost *:80&gt;
+   ServerName   你的域名
+    DocumentRoot /home/user/octopress  #注意这里user换成你的用户名
+ &lt;/VirtualHost&gt;
+ &lt;Directory /home/user/octopress&gt;
+     Require all granted
+ &lt;/Directory&gt; </code></pre><p>   3.3  本地端：修改octopess目录下的Rakefile,填写ssh server的的相关信息 </p>
+<pre><code>ssh_user       = &quot;username@MyVPS.com&quot;
+ssh_port       = &quot;22&quot;
+document_root  = &quot;~/octopress&quot;
+rsync_delete   = false
+rsync_args     = &quot;&quot;
+deploy_default = &quot;rsync&quot; </code></pre><p>   3.3 重新生成静态html页面,并部署到服务器</p>
+<pre><code>rake generate
+rake deploy</code></pre><h4 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5 注意事项"></a>5 注意事项</h4><p>   5.1 git使用http proxy，执行下面的命令：</p>
+<pre><code>export all_proxy=socks5://127.0.0.1:1080</code></pre><p>   5.2 ssh 登录免密码<br>   centos 7，ssh使用public key登录加了很多限制。<br>   生成ssh key,把 key拷贝到 ~/.ssh 下的authorized_keys里面后，还是不行，研究了半天，需要继续修改：</p>
+<p>   在/etc/ssh/sshd_config文件中，</p>
+<pre><code>PubkeyAuthentication yes #缺省是no</code></pre><p>   在本地端和服务器端，都要修改id_rsa的权限为600，修改 .ssh的权限为700</p>
+<pre><code>chmod 700 .ssh
+cd .ssh
+chmod 600 id_rsa*</code></pre><h4 id="6-参考文档"><a href="#6-参考文档" class="headerlink" title="6 参考文档"></a>6 参考文档</h4><p><a href="http://sawyerzhu.herokuapp.com/blog/2014/05/06/octopress-deloyment-on-mac/" target="_blank" rel="noopener">Mac环境下部署Octopress个人博客到Heroku</a></p>
+<p><a href="http://www.yangzhiping.com/tech/octopress.html" target="_blank" rel="noopener">像黑客一样写博客</a></p>
+<p><a href="http://www.xiaozhou.net/deploy-octopress-to-your-vps-2013-08-13.html" target="_blank" rel="noopener">部署Octopress到你的VPS</a></p>
+<p><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes" target="_blank" rel="noopener">Octopress第三方主题</a></p>
+<p><a href="https://mike163.herokuapp.com/" target="_blank" rel="noopener">heroku link</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/11/01/invest-asset-configuration-game/" rel="next" title="投资，一个资产配置的游戏">
+                <i class="fa fa-chevron-left"></i> 投资，一个资产配置的游戏
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/22/2015-06-22-xun-zhao-sshgong-ji-xiu-gai-iptablesjin-xing-ping-bi/" rel="prev" title="ssh攻击辅助分析程序">
+                ssh攻击辅助分析程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/06/22/2015-06-22-setup-weblog/"
+           data-title="使用octopress搭建个人博客" data-url="http://yoursite.com/2015/06/22/2015-06-22-setup-weblog/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="mike163" />
+          <p class="site-author-name" itemprop="name">mike163</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mikechen163" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/mike-chen-91" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/1050207/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://xueqiu.com/6132923097" target="_blank" title="雪球">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  雪球
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/73ec7e47952a/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weixin.sogou.com/?p=73141200&kw=%E5%8D%8E%E4%B8%BA" title="sogou" target="_blank">sogou</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://v2ex.com/" title="v2ex" target="_blank">v2ex</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.solidot.org/" title="solidot" target="_blank">solidot</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://news.mydrivers.com/blog/" title="驱动之家新闻" target="_blank">驱动之家新闻</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iteye.com/" title="iteye新闻" target="_blank">iteye新闻</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://diycode.cc/sites" title="Diycode" target="_blank">Diycode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ruby-china.org/" title="ruby-china" target="_blank">ruby-china</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wangpansou.cn/" title="百度云搜索" target="_blank">百度云搜索</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ruby-doc.org/" title="Ruby-doc" target="_blank">Ruby-doc</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://stackoverflow.com/" title="Stackoverflow" target="_blank">Stackoverflow</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://apple4us.com/post/" title="Apple4us" target="_blank">Apple4us</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://36kr.com/newsflashes" title="36KR" target="_blank">36KR</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wallstreetcn.com/news" title="华尔街新闻" target="_blank">华尔街新闻</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的博客" target="_blank">阮一峰的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://news.dbanotes.net/" title="StartupNews" target="_blank">StartupNews</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://1.qinghuai.org/" title="FedoraNews" target="_blank">FedoraNews</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://geek.csdn.net/hotest" title="Geek头条" target="_blank">Geek头条</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://toutiao.io/" title="开发者头条" target="_blank">开发者头条</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ourmacs.com/" title="OurMacs" target="_blank">OurMacs</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://theme-next.iissnan.com/getting-started.html" title="NextHelp" target="_blank">NextHelp</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.xefan.com/" title="龍昌博客" target="_blank">龍昌博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.xiaozhou.net/" title="iTimothly" target="_blank">iTimothly</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.unrealengine.com/zh-CN" title="UnrealEngine" target="_blank">UnrealEngine</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在本地系统安装octopress系统。具体步骤参考"><span class="nav-number">1.</span> <span class="nav-text">1 在本地系统安装octopress系统。具体步骤参考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建新文章"><span class="nav-number">2.</span> <span class="nav-text">2 创建新文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-部署到heroku"><span class="nav-number">3.</span> <span class="nav-text">3 部署到heroku</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-部署到vps"><span class="nav-number">4.</span> <span class="nav-text">4 部署到vps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-注意事项"><span class="nav-number">5.</span> <span class="nav-text">5 注意事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-参考文档"><span class="nav-number">6.</span> <span class="nav-text">6 参考文档</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mike163</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mike163"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

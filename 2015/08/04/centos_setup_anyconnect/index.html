@@ -1,0 +1,833 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ocserv,anyconnect," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="参考文件  在 CentOS 7 上搭建 Cisco AnyConnect VPN  Gentoo编译安装Ocserv上Cisco AnyConnect VPN    折腾笔记：架设OpenConnect Server给iPhone提供更顺畅的网络生活   安装没有任何问题，直接安装即可 sudo yum install epel-release sudo yum install ocserv 遇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos 7 ocserv AnyConnect服务器配置说明">
+<meta property="og:url" content="http://yoursite.com/2015/08/04/centos_setup_anyconnect/index.html">
+<meta property="og:site_name" content="mike163&#39;s home">
+<meta property="og:description" content="参考文件  在 CentOS 7 上搭建 Cisco AnyConnect VPN  Gentoo编译安装Ocserv上Cisco AnyConnect VPN    折腾笔记：架设OpenConnect Server给iPhone提供更顺畅的网络生活   安装没有任何问题，直接安装即可 sudo yum install epel-release sudo yum install ocserv 遇">
+<meta property="article:published_time" content="2015-08-04T06:25:00.000Z">
+<meta property="article:modified_time" content="2016-06-18T16:39:46.000Z">
+<meta property="article:author" content="mike163">
+<meta property="article:tag" content="ocserv">
+<meta property="article:tag" content="anyconnect">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/08/04/centos_setup_anyconnect/"/>
+
+  <title> Centos 7 ocserv AnyConnect服务器配置说明 | mike163's home </title>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">mike163's home</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/digest" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Centos 7 ocserv AnyConnect服务器配置说明
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-04T14:25:00+08:00" content="2015-08-04">
+              2015-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/04/centos_setup_anyconnect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/04/centos_setup_anyconnect/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考文件</p>
+<p> <a href="http://www.xuanlove.net/jishujiaoliu/1210.html" target="_blank" rel="noopener">在 CentOS 7 上搭建 Cisco AnyConnect VPN</a></p>
+<p> <a href="http://blog.ihipop.info/2014/07/4782.html" target="_blank" rel="noopener">Gentoo编译安装Ocserv上Cisco AnyConnect VPN</a> </p>
+<p>  <a href="http://bitinn.net/11084/" target="_blank" rel="noopener">折腾笔记：架设OpenConnect Server给iPhone提供更顺畅的网络生活</a> </p>
+<p> 安装没有任何问题，直接安装即可</p>
+<pre><code>sudo yum install epel-release
+sudo yum install ocserv</code></pre><p> 遇到的主要问题：</p>
+<h5 id="1-本地lan禁止vpn。需要修改-etc-ocserv-ocserv-conf"><a href="#1-本地lan禁止vpn。需要修改-etc-ocserv-ocserv-conf" class="headerlink" title="1 本地lan禁止vpn。需要修改/etc/ocserv/ocserv.conf"></a>1 本地lan禁止vpn。需要修改/etc/ocserv/ocserv.conf</h5><pre><code>#注意 这里推送路由条数限制据说只有64条 而且不能指定是走还是不  走路由 这点没有openVPN灵活 我这里全部把它注释了 走全局了
+#设定全部ip都走 VPN，由于本地路由有优先表，所以本地路由不走vpn
+route = 0.0.0.0/128.0.0.0
+route = 128.0.0.0/128.0.0.0</code></pre><p>   另外一个办法是配置常用的路由，客户端最大支持200条，服务器缺省64条，如果要修改，需要重新编译。<a href="http://blog.ltns.info/wp-content/uploads/2014/09/ocserv.zip" target="_blank" rel="noopener">这里</a> 可以下载一个route配置样本</p>
+<h5 id="2-启动用户证书登录。"><a href="#2-启动用户证书登录。" class="headerlink" title="2 启动用户证书登录。"></a>2 启动用户证书登录。</h5><p>   用户证书制作脚本，需要一个参数 用户名</p>
+<pre><code>sh make_user_cert.sh username</code></pre><p>  脚本如下： </p>
+<pre><code>if [ -z &quot;$1&quot; ];then
+  echo &quot;please input user_name for cert &quot;
+exit
+
+else
+ mkdir $1
+ cd $1
+ cp ../ca-cert.pem .
+ cp ../ca-key.pem  .
+ certtool --generate-privkey --outfile user-key.pem
+
+ cat &gt;user.tmpl&lt;&lt;EOF
+  cn = &quot;$1&quot;
+  unit = &quot;my company&quot;
+  expiration_days = 3650
+  signing_key
+ tls_www_client
+EOF  #注意，文件中这个EOF必须放在行首，否则shell会报错误
+
+  certtool --generate-certificate --load-privkey user-key.pem --load-ca-certificate ca-cert.pem --load-ca-privkey ca-key.pem --template user.tmpl --outfile user-cert.pem
+  certtool --to-p12 --load-privkey user-key.pem --pkcs-cipher 3des-pkcs12 --load-certificate user-cert.pem --outfile user.p12 --outder
+  mv user.p12 $1.p12
+
+fi</code></pre><a id="more"></a> 
+
+<h5 id="3-修改-etc-ocserv-ocserv-conf"><a href="#3-修改-etc-ocserv-ocserv-conf" class="headerlink" title="3  修改/etc/ocserv/ocserv.conf"></a>3  修改/etc/ocserv/ocserv.conf</h5><pre><code># 确保服务器正确读取用户证书（后面会用到用户证书）
+cert-user-oid = 2.5.4.3
+
+# 注释掉所有的route，让服务器成为gateway，如果是手机用，则全部流量都走vpn
+#route = 192.168.1.0/255.255.255.0
+
+# 改为证书登陆，注释掉原来的登陆模式
+auth = &quot;certificate&quot;
+#auth = &quot;plain[/etc/ocserv/ocpasswd]&quot;
+
+# 证书认证不支持这个选项，注释掉这行
+#listen-clear-file = /var/run/ocserv-conn.socket
+
+# 启用证书验证证书，实际路径和你的CA的证书路径一致即可。
+ca-cert = /etc/ssl/private/my-ca-cert.pem
+
+ #！！！把这句注释掉，否则客户端总是说下载不了配置文件，导致连接失败
+#user-profile = profile.xml</code></pre><p> 4 启动服务</p>
+<pre><code>sudo service ocserv start
+sudo systemctl enable ocserv #自动启动</code></pre><p>5 分发到用户。<br>通过邮件或者其他方式，把用户证书发给手机。然后在客户端菜单-诊断-证书管理-导入，导入生成的证书。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ocserv/" rel="tag">#ocserv</a>
+          
+            <a href="/tags/anyconnect/" rel="tag">#anyconnect</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/01/vps-setup/" rel="next" title="Centos 7 VPS服务器配置说明">
+                <i class="fa fa-chevron-left"></i> Centos 7 VPS服务器配置说明
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/" rel="prev" title="MAC OS X下的一些小技巧">
+                MAC OS X下的一些小技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/08/04/centos_setup_anyconnect/"
+           data-title="Centos 7 ocserv AnyConnect服务器配置说明" data-url="http://yoursite.com/2015/08/04/centos_setup_anyconnect/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="mike163" />
+          <p class="site-author-name" itemprop="name">mike163</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mikechen163" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/mike-chen-91" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/1050207/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://xueqiu.com/6132923097" target="_blank" title="雪球">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  雪球
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/73ec7e47952a/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weixin.sogou.com/?p=73141200&kw=%E5%8D%8E%E4%B8%BA" title="sogou" target="_blank">sogou</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://v2ex.com/" title="v2ex" target="_blank">v2ex</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.solidot.org/" title="solidot" target="_blank">solidot</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://news.mydrivers.com/blog/" title="驱动之家新闻" target="_blank">驱动之家新闻</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.iteye.com/" title="iteye新闻" target="_blank">iteye新闻</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://diycode.cc/sites" title="Diycode" target="_blank">Diycode</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ruby-china.org/" title="ruby-china" target="_blank">ruby-china</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wangpansou.cn/" title="百度云搜索" target="_blank">百度云搜索</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ruby-doc.org/" title="Ruby-doc" target="_blank">Ruby-doc</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://stackoverflow.com/" title="Stackoverflow" target="_blank">Stackoverflow</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://apple4us.com/post/" title="Apple4us" target="_blank">Apple4us</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://36kr.com/newsflashes" title="36KR" target="_blank">36KR</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://wallstreetcn.com/news" title="华尔街新闻" target="_blank">华尔街新闻</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的博客" target="_blank">阮一峰的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://news.dbanotes.net/" title="StartupNews" target="_blank">StartupNews</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://1.qinghuai.org/" title="FedoraNews" target="_blank">FedoraNews</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://geek.csdn.net/hotest" title="Geek头条" target="_blank">Geek头条</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://toutiao.io/" title="开发者头条" target="_blank">开发者头条</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ourmacs.com/" title="OurMacs" target="_blank">OurMacs</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://theme-next.iissnan.com/getting-started.html" title="NextHelp" target="_blank">NextHelp</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.xefan.com/" title="龍昌博客" target="_blank">龍昌博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.xiaozhou.net/" title="iTimothly" target="_blank">iTimothly</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.unrealengine.com/zh-CN" title="UnrealEngine" target="_blank">UnrealEngine</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-本地lan禁止vpn。需要修改-etc-ocserv-ocserv-conf"><span class="nav-number">1.</span> <span class="nav-text">1 本地lan禁止vpn。需要修改&#x2F;etc&#x2F;ocserv&#x2F;ocserv.conf</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-启动用户证书登录。"><span class="nav-number">2.</span> <span class="nav-text">2 启动用户证书登录。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-修改-etc-ocserv-ocserv-conf"><span class="nav-number">3.</span> <span class="nav-text">3  修改&#x2F;etc&#x2F;ocserv&#x2F;ocserv.conf</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mike163</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mike163"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
