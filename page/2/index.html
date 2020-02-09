@@ -245,141 +245,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/" itemprop="url">
-                  MAC OS X下的一些小技巧
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-04T15:25:00+08:00" content="2015-08-04">
-              2015-08-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-MAC-OS-X下修改NTFS分区大小"><a href="#1-MAC-OS-X下修改NTFS分区大小" class="headerlink" title="1 MAC OS X下修改NTFS分区大小"></a>1 MAC OS X下修改NTFS分区大小</h3><p>一个移动硬盘，买来后格式为NTFS格式，就一个分区。使用mac磁盘工具，提示分区格式为MBR主引导记录格式，无法改变大小。</p>
-<p>解决方法如下：</p>
-<p>1、首先在windows系统下，通过diskpart压缩分区大小</p>
-<p>2、把空出来的空间，创建一个格式为exFAT的分区</p>
-<p>3、在MAC 磁盘工具中，抹去这个exFAT格式的分区，重新格式化为HFS+</p>
-<h3 id="2-MAC-支持NTFS写操作"><a href="#2-MAC-支持NTFS写操作" class="headerlink" title="2 MAC 支持NTFS写操作"></a>2 MAC 支持NTFS写操作</h3><p>mac os x是原生支持ntfs读操作的，但由于某些原因，写操作被屏蔽了。有的时候我们需要打开ntfs的写操作。可以通过修改 /etc/fstab实现。</p>
-<pre><code>#假设移动硬盘的卷标是My Passport,那么修改如下
- LABEL=My\040Passport none ntfs rw,auto,nobrowse</code></pre><h3 id="3-iTunes-Photo支持多个资料库"><a href="#3-iTunes-Photo支持多个资料库" class="headerlink" title="3 iTunes Photo支持多个资料库"></a>3 iTunes Photo支持多个资料库</h3><p>检查了一下磁盘空间，photo资料库居然达到80个G了，考虑把photo资料库转移到移动硬盘上去，留出空间给其他磁盘用。</p>
-<p>1、考虑资料库到移动硬盘。移动硬盘的分区最好为HFS+格式</p>
-<pre><code>cd /Volume/backup/&quot;照片 Library.photoslibrary&quot;
-ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Pictures/&quot;照片 Library.photoslibrary&quot; .</code></pre><p>2 按住option键，打开照片应用，此时会出现一个对话框让你选择资料库。此时可以检查备份的照片是否都OK了。</p>
-<p>3 iTunes的资料库也可以同样处理。 </p>
-<pre><code>cd /Volume/backup/iTunes
-ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Music/iTunes .</code></pre><p>4 目录同步的小工具<br>这个工具会递归的坚持目标路径、文件是否存在，如果不存在，则创建目录、复制文件；如果存在，再检查判断文件大小是否和源文件一致，如果不一致，就覆盖目标文件。 </p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/08/04/centos_setup_anyconnect/" itemprop="url">
                   Centos 7 ocserv AnyConnect服务器配置说明
                 </a>
@@ -1636,6 +1501,135 @@ chmod 600 id_rsa*</code></pre><h4 id="6-参考文档"><a href="#6-参考文档" 
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/03/22/2012-03-22-collect-decoration-infomation/" itemprop="url">
+                  装修记录（一）：好的设计
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-03-22T19:59:00+08:00" content="2012-03-22">
+              2012-03-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">生活</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/03/22/2012-03-22-collect-decoration-infomation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/22/2012-03-22-collect-decoration-infomation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这个帖子用于记录一些装修的信息。有信息可以直接回复在这个帖子</p>
+<p>##1.设计公司##<br>三米设计确实还是有不少喜欢的作品</p>
+<p>三米的案例集 <a href="http://www.3mihome.com/wrod.asp?MaxID=2" target="_blank" rel="noopener">http://www.3mihome.com/wrod.asp?MaxID=2</a></p>
+<p>喜欢<a href="http://www.3mihome.com/wrodmore.asp?ID=302" target="_blank" rel="noopener">这个</a> <a href="http://www.3mihome.com/wrodmore.asp?ID=309" target="_blank" rel="noopener">这个</a></p>
+<p>##2.喜欢的一些装修图##<br>书房，喜欢这个书柜<br><a href="http://www.flickr.com/photos/78243932@N04/7005592715/" target="_blank" rel="noopener" title="Flickr 上 mikechen163 的 041101230383"><img src="http://farm7.staticflickr.com/6094/7005592715_65b58fed77_b.jpg" width="809" height="618" alt="041101230383"></a></p>
+<p>主卧，暗灰色的墙面，弧形的主窗，床后的柜子<br><a href="http://www.flickr.com/photos/78243932@N04/6859474194/" target="_blank" rel="noopener" title="Flickr 上 mikechen163 的 20111122154956380"><img src="http://farm8.staticflickr.com/7101/6859474194_a59c904e27_b.jpg" width="700" height="642" alt="20111122154956380"></a></p>
+<p>厨房，注意地板和前面的颜色，深色的地板看起来没那么脏<br><a href="http://www.flickr.com/photos/78243932@N04/6859473176/" target="_blank" rel="noopener" title="Flickr 上 mikechen163 的 0411012715614"><img src="http://farm7.staticflickr.com/6048/6859473176_f46b0595f3_b.jpg" width="640" height="774" alt="0411012715614"></a></p>
+<p><a href="http://www.flickr.com/photos/78243932@N04/7005592131/" target="_blank" rel="noopener" title="Flickr 上 mikechen163 的 0513001029883"><img src="http://farm7.staticflickr.com/6091/7005592131_39b48d4a1c_b.jpg" width="900" height="561" alt="0513001029883"></a></p>
+<p>儿童房，靠墙的一面全部做成书柜，空间利用合理<br><a href="http://www.flickr.com/photos/78243932@N04/6859473090/" target="_blank" rel="noopener" title="Flickr 上 mikechen163 的 0411012356348"><img src="http://farm8.staticflickr.com/7239/6859473090_7826b0002e_b.jpg" width="774" height="618" alt="0411012356348"></a></p>
+<p>更多图片可以点<a href="http://www.flickr.com/photos/78243932@N04/page1/" target="_blank" rel="noopener">这里</a> <a href="http://www.flickr.com/photos/78243932@N04/page2/" target="_blank" rel="noopener">这里</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1681,7 +1675,7 @@ chmod 600 id_rsa*</code></pre><h4 id="6-参考文档"><a href="#6-参考文档" 
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
