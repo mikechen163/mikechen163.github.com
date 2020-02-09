@@ -245,6 +245,106 @@
             
               
                 
+                <a class="post-title-link" href="/2020/01/19/free-safe-dns/" itemprop="url">
+                  free-safe-dns
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-01-19T10:18:59+08:00" content="2020-01-19">
+              2020-01-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/01/19/free-safe-dns/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/01/19/free-safe-dns/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2020/01/18/setup-new-vps/" itemprop="url">
                   UBNT ERX v2ray 配置透明代理
                 </a>
@@ -389,7 +489,7 @@ DAEMON_OPTS=&quot;-config /etc/v2ray/config.json&quot;
               
                 
                 <a class="post-title-link" href="/2020/01/18/setup-coredns-unbt-erx/" itemprop="url">
-                  UBNT ERX coredns配置
+                  UBNT ERX dns配置
                 </a>
               
             
@@ -458,8 +558,25 @@ DAEMON_OPTS=&quot;-config /etc/v2ray/config.json&quot;
       
         
           
-            <p>待写 to be con</p>
+            <h3 id="1-下载和编译"><a href="#1-下载和编译" class="headerlink" title="1 下载和编译"></a>1 下载和编译</h3><p>   备注:go版本大于1.13</p>
+<pre><code>git clone --depth 1 https://github.com/mikechen163/dohproxy.git
+cd mikechen163/dohproxy
+GOOS=linux GOARCH=mipsle go build</code></pre><h3 id="2-copy到erx路由器上"><a href="#2-copy到erx路由器上" class="headerlink" title="2 copy到erx路由器上"></a>2 copy到erx路由器上</h3><pre><code>scp cn.txt root@erx:/usr/local/bin/
+scp block.txt root@erx:/usr/local/bin/
+scp dohproxy root@erx:/usr/local/bin/mydns</code></pre><h3 id="3-启用mydns"><a href="#3-启用mydns" class="headerlink" title="3 启用mydns"></a>3 启用mydns</h3><p>   创建一个/etc/init.d/mydns 文件,前面的内容修改为:</p>
+<pre><code>....
+DESC=mydns
+NAME=mydns
+DAEMON=/usr/local/bin/mydns
 
+DAEMON_OPTS=&quot;-port 5353 -block /usr/local/bin/block.txt -chn /usr/local/bin/cn.txt   
+... </code></pre><p>   然后/etc/init.d/mydns restart启用服务.</p>
+<pre><code>dig @localhost -p 5353 www.google.com </code></pre><p>   测试是否成功.</p>
+<p>   修改 /etc/dnsmasq.conf ,也可以通过配置实现</p>
+<pre><code>server=127.0.0.1#5353    # statically configured</code></pre><p>   测试是否成功</p>
+<pre><code>/etc/init.d/dnsmasq restart  
+dig @localhost www.google.com </code></pre><h3 id="4-设置开机脚本"><a href="#4-设置开机脚本" class="headerlink" title="4 设置开机脚本"></a>4 设置开机脚本</h3><p>   /config/scripts/post-config.d/update_iptables<br>   增加一行,保证mydns重启之后服务启动</p>
+<pre><code>/etc/init.d/mydns restart</code></pre>
           
         
       
@@ -1415,141 +1532,6 @@ put openwrt-ar71xx-nand-wndr4300-ubi-factory.img</code></pre><p> 6 另开一个�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/" itemprop="url">
-                  MAC OS X下的一些小技巧
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-04T15:25:00+08:00" content="2015-08-04">
-              2015-08-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-MAC-OS-X下修改NTFS分区大小"><a href="#1-MAC-OS-X下修改NTFS分区大小" class="headerlink" title="1 MAC OS X下修改NTFS分区大小"></a>1 MAC OS X下修改NTFS分区大小</h3><p>一个移动硬盘，买来后格式为NTFS格式，就一个分区。使用mac磁盘工具，提示分区格式为MBR主引导记录格式，无法改变大小。</p>
-<p>解决方法如下：</p>
-<p>1、首先在windows系统下，通过diskpart压缩分区大小</p>
-<p>2、把空出来的空间，创建一个格式为exFAT的分区</p>
-<p>3、在MAC 磁盘工具中，抹去这个exFAT格式的分区，重新格式化为HFS+</p>
-<h3 id="2-MAC-支持NTFS写操作"><a href="#2-MAC-支持NTFS写操作" class="headerlink" title="2 MAC 支持NTFS写操作"></a>2 MAC 支持NTFS写操作</h3><p>mac os x是原生支持ntfs读操作的，但由于某些原因，写操作被屏蔽了。有的时候我们需要打开ntfs的写操作。可以通过修改 /etc/fstab实现。</p>
-<pre><code>#假设移动硬盘的卷标是My Passport,那么修改如下
- LABEL=My\040Passport none ntfs rw,auto,nobrowse</code></pre><h3 id="3-iTunes-Photo支持多个资料库"><a href="#3-iTunes-Photo支持多个资料库" class="headerlink" title="3 iTunes Photo支持多个资料库"></a>3 iTunes Photo支持多个资料库</h3><p>检查了一下磁盘空间，photo资料库居然达到80个G了，考虑把photo资料库转移到移动硬盘上去，留出空间给其他磁盘用。</p>
-<p>1、考虑资料库到移动硬盘。移动硬盘的分区最好为HFS+格式</p>
-<pre><code>cd /Volume/backup/&quot;照片 Library.photoslibrary&quot;
-ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Pictures/&quot;照片 Library.photoslibrary&quot; .</code></pre><p>2 按住option键，打开照片应用，此时会出现一个对话框让你选择资料库。此时可以检查备份的照片是否都OK了。</p>
-<p>3 iTunes的资料库也可以同样处理。 </p>
-<pre><code>cd /Volume/backup/iTunes
-ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Music/iTunes .</code></pre><p>4 目录同步的小工具<br>这个工具会递归的坚持目标路径、文件是否存在，如果不存在，则创建目录、复制文件；如果存在，再检查判断文件大小是否和源文件一致，如果不一致，就覆盖目标文件。 </p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1595,7 +1577,7 @@ ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Music/iTunes .</code></pre><p
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
