@@ -481,19 +481,13 @@ fi</code></pre>
 <pre><code>useradd -g wheel -d /home/testuser testuser
 passwd testuser</code></pre><p>   在.bashrc文件后，添加ls的别名</p>
 <pre><code>alias l=&apos;ls -l&apos;</code></pre><h4 id="1-2-配置ssh"><a href="#1-2-配置ssh" class="headerlink" title="1.2 配置ssh"></a>1.2 配置ssh</h4><p>   配置ssh的访问方式为 key访问，关闭密码方式。</p>
-<h5 id="1-生成public-key，并添加到到远程主机-ssh-authorized-keys文件"><a href="#1-生成public-key，并添加到到远程主机-ssh-authorized-keys文件" class="headerlink" title="1 生成public key，并添加到到远程主机~/.ssh/authorized_keys文件"></a>1 生成public key，并添加到到远程主机~/.ssh/authorized_keys文件</h5><pre><code>ssh-keygen -t rsa</code></pre><p>拷贝到远程主机,并修改.ssh目录的访问权限,注意客户端和服务器端的权限都需要修改</p>
-<pre><code>scp ~/.ssh/id_dsa.pub user@remote.host:pubkey.txt
-ssh user@remote.host
-mkdir ~/.ssh
-chmod 700 .ssh
-cat pubkey.txt &gt;&gt; ~/.ssh/authorized_keys
-rm ~/pubkey.txt
-chmod 600 ~/.ssh/*</code></pre><p>   退出ssh,重新登录ssh，检查是否已经不需要密码了。验证成功后，关闭ssh密码访问方式</p>
+<h5 id="1-生成public-key，并添加到到远程主机-ssh-authorized-keys文件"><a href="#1-生成public-key，并添加到到远程主机-ssh-authorized-keys文件" class="headerlink" title="1 生成public key，并添加到到远程主机~/.ssh/authorized_keys文件"></a>1 生成public key，并添加到到远程主机~/.ssh/authorized_keys文件</h5><pre><code>ssh-keygen -t rsa</code></pre><p>拷贝到远程主机</p>
+<pre><code>ssh-copy-id -i .ssh/id_rsa.pub mike@ubox</code></pre><p>   退出ssh,重新登录ssh，检查是否已经不需要密码了。验证成功后，关闭ssh密码访问方式</p>
 <h5 id="3-修改服务器-etc-ssh-ssh-config文件"><a href="#3-修改服务器-etc-ssh-ssh-config文件" class="headerlink" title="3 修改服务器/etc/ssh/ssh_config文件"></a>3 修改服务器/etc/ssh/ssh_config文件</h5><pre><code>PubkeyAuthentication yes #启用public key访问
 PasswordAuthentication no #关闭密码
 ChallengeResponseAuthentication no#关闭密码
 PermitRootLogin no#禁止root用户登录</code></pre><p>   修改完毕后，重新启动ssh服务</p>
-<pre><code>sudo service sshd restart    </code></pre>
+<pre><code>sudo systemctl sshd restart    </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/01/vps-setup/#more" rel="contents">
               阅读全文 &raquo;
