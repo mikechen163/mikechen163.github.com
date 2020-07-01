@@ -245,6 +245,186 @@
             
               
                 
+                <a class="post-title-link" href="/2020/07/01/add-2nd-ip/" itemprop="url">
+                  Centos 7 增加第二个IP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-07-01T15:30:00+08:00" content="2020-07-01">
+              2020-07-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/07/01/add-2nd-ip/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/07/01/add-2nd-ip/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近的一些技术总结</p>
+<h3 id="1-Centos-7-增加第二个ip"><a href="#1-Centos-7-增加第二个ip" class="headerlink" title="1 Centos 7 增加第二个ip"></a>1 Centos 7 增加第二个ip</h3><p>服务器需要新增一个ip，记录一下：</p>
+<p>检查服务器是否启用了NetworkManager服务</p>
+<pre><code>#ls /etc/sysconfig/network-scripts/ifcfg*
+#grep &apos;NM_CONTROLLED&apos; /etc/sysconfig/network-scripts/ifcfg-eth0
+没找到
+
+#sudo systemctl -a | grep NetworkManager
+没启用
+not-found inactive dead      NetworkManager.service
+
+#sudo systemctl -a | grep network
+还是旧的方式
+network.service                                                                                                   loaded    active   exited    LSB: Bring up/down networking</code></pre><p>直接增加一个配置文件：</p>
+<pre><code>#sudo vi /etc/sysconfig/network-scripts/ifcfg-eth0:0
+
+BOOTPROTO=none
+DEVICE=&quot;eth0:0&quot;
+IPADDR=xx.xx.xx.xx #第二个ip地址 
+NETMASK=255.255.255.0
+ONBOOT=yes</code></pre><p> 启用命令：</p>
+<pre><code>#sudo ifdown eth0; ifup eth0
+
+#ifconfig 命令检查新的ip
+eth0:0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+  inet xx.xx.xx.xx  netmask 255.255.255.0  broadcast xx.xx.xx.255</code></pre><p> 另外一套体系是ip </p>
+<pre><code>#ip addr show 检查ip地址
+#sudo ip addr add xx.xx.xx.xx/24 broadcast xx.xx.xx.255 dev eth0  添加一个新的ip地址，关机就没有了。
+
+#ip route show 检查路由
+# sudo ip route add 8.8.4.4/32 via xx.xx.xx.xx 添加一个新的路由， 
+
+#ip route get 8.8.8.8 检查到8.8.8.8 的路由</code></pre><h3 id="2-在路由器上，转发udp端口"><a href="#2-在路由器上，转发udp端口" class="headerlink" title="2 在路由器上，转发udp端口"></a>2 在路由器上，转发udp端口</h3><pre><code>#转发 8.8.8.8的 dns 查询请求到192.168.1.1
+iptables -t nat -A PREROUTING -p udp -d 8.8.8.8 --dport 53 -j DNAT --to 192.168.1.1:53</code></pre><h3 id="3-v2ray增加直达的域名"><a href="#3-v2ray增加直达的域名" class="headerlink" title="3 v2ray增加直达的域名"></a>3 v2ray增加直达的域名</h3><p>   客户段配置</p>
+<pre><code>&quot;routing&quot;: {
+&quot;domainStrategy&quot;: &quot;IPOnDemand&quot;,
+&quot;rules&quot;:[
+  {
+    // Blocks access to private IPs. Remove this if you want to access your router.
+    &quot;type&quot;: &quot;field&quot;,
+    &quot;ip&quot;: [&quot;geoip:private&quot;],
+    &quot;outboundTag&quot;: &quot;direct&quot;
+  },
+  {
+    &quot;type&quot;: &quot;field&quot;,
+    &quot;ip&quot;: [&quot;geoip:cn&quot;],
+    &quot;outboundTag&quot;: &quot;direct&quot;
+  },
+  {
+    &quot;type&quot;: &quot;field&quot;,
+    &quot;domain&quot;: [&quot;geosite:cn&quot;,
+                &quot;cloudflare.com&quot;,
+    &quot;domain&quot;: [&quot;geosite:cn&quot;,
+                &quot;github.com&quot;,
+                &quot;apple.com&quot;
+              ],
+    &quot;outboundTag&quot;: &quot;direct&quot;
+  },</code></pre><h3 id="4-启用cloudflare"><a href="#4-启用cloudflare" class="headerlink" title="4 启用cloudflare"></a>4 启用cloudflare</h3><p>  注册用户，属于你的域名，cloudflare会自动识别现有的地址绑定。</p>
+<p>  然后在域名登记的网站，修改域名的解析服务器为 cloudflare的域名服务器。</p>
+<p>  设定 ssl的加密方式为 full(strict)</p>
+<p>  增加一个防火墙规则，识别你的流量，allow。 没有这个，cloudflare可能会限制流量。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2020/01/18/setup-new-vps/" itemprop="url">
                   UBNT ERX v2ray 配置透明代理
                 </a>
@@ -1450,141 +1630,6 @@ put openwrt-ar71xx-nand-wndr4300-ubi-factory.img</code></pre><p> 6 另开一个�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/" itemprop="url">
-                  MAC OS X下的一些小技巧
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-04T15:25:00+08:00" content="2015-08-04">
-              2015-08-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-MAC-OS-X下修改NTFS分区大小"><a href="#1-MAC-OS-X下修改NTFS分区大小" class="headerlink" title="1 MAC OS X下修改NTFS分区大小"></a>1 MAC OS X下修改NTFS分区大小</h3><p>一个移动硬盘，买来后格式为NTFS格式，就一个分区。使用mac磁盘工具，提示分区格式为MBR主引导记录格式，无法改变大小。</p>
-<p>解决方法如下：</p>
-<p>1、首先在windows系统下，通过diskpart压缩分区大小</p>
-<p>2、把空出来的空间，创建一个格式为exFAT的分区</p>
-<p>3、在MAC 磁盘工具中，抹去这个exFAT格式的分区，重新格式化为HFS+</p>
-<h3 id="2-MAC-支持NTFS写操作"><a href="#2-MAC-支持NTFS写操作" class="headerlink" title="2 MAC 支持NTFS写操作"></a>2 MAC 支持NTFS写操作</h3><p>mac os x是原生支持ntfs读操作的，但由于某些原因，写操作被屏蔽了。有的时候我们需要打开ntfs的写操作。可以通过修改 /etc/fstab实现。</p>
-<pre><code>#假设移动硬盘的卷标是My Passport,那么修改如下
- LABEL=My\040Passport none ntfs rw,auto,nobrowse</code></pre><h3 id="3-iTunes-Photo支持多个资料库"><a href="#3-iTunes-Photo支持多个资料库" class="headerlink" title="3 iTunes Photo支持多个资料库"></a>3 iTunes Photo支持多个资料库</h3><p>检查了一下磁盘空间，photo资料库居然达到80个G了，考虑把photo资料库转移到移动硬盘上去，留出空间给其他磁盘用。</p>
-<p>1、考虑资料库到移动硬盘。移动硬盘的分区最好为HFS+格式</p>
-<pre><code>cd /Volume/backup/&quot;照片 Library.photoslibrary&quot;
-ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Pictures/&quot;照片 Library.photoslibrary&quot; .</code></pre><p>2 按住option键，打开照片应用，此时会出现一个对话框让你选择资料库。此时可以检查备份的照片是否都OK了。</p>
-<p>3 iTunes的资料库也可以同样处理。 </p>
-<pre><code>cd /Volume/backup/iTunes
-ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Music/iTunes .</code></pre><p>4 目录同步的小工具<br>这个工具会递归的坚持目标路径、文件是否存在，如果不存在，则创建目录、复制文件；如果存在，再检查判断文件大小是否和源文件一致，如果不一致，就覆盖目标文件。 </p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/04/how_to_change_partion_size_for_mac_with_mbr_format/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1630,7 +1675,7 @@ ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Music/iTunes .</code></pre><p
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1647,7 +1692,7 @@ ruby /Users/mike/work/tools/sync.rb -c /Users/mike/Music/iTunes .</code></pre><p
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
